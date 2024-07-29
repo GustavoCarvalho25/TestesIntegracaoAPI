@@ -17,10 +17,26 @@ namespace JornadaMilhas.Integration.Test.API
             using var client = app.CreateClient();
 
             //Act
-            var resultado = await client.PostAsJsonAsync("/auth-login", user);
+            var result = await client.PostAsJsonAsync("/auth-login", user);
 
             //Assert
-            Assert.Equal(HttpStatusCode.OK, resultado.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task POST_Efetua_Login_Com_Falha()
+        {
+            //arrange
+            var app = new JornadaMilhasWebApplicationFactory();
+
+            var user = new UserDTO { Email = "errado@email.com", Password = "SenhaErrada" };
+            using var client = app.CreateClient();
+
+            //act
+            var result = await client.PostAsJsonAsync("/auth-login", user);
+
+            //assert
+            Assert.Equal(HttpStatusCode.BadRequest, result.StatusCode);
         }
     }
 }
