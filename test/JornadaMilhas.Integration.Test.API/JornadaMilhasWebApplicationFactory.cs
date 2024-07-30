@@ -12,6 +12,15 @@ namespace JornadaMilhas.Integration.Test.API
 {
     public class JornadaMilhasWebApplicationFactory : WebApplicationFactory<Program>
     {
+        public JornadaMilhasContext Context { get; private set; }
+        private IServiceScope _scope;
+
+        public JornadaMilhasWebApplicationFactory()
+        {
+            _scope = Services.CreateScope();
+            Context = _scope.ServiceProvider.GetRequiredService<JornadaMilhasContext>();
+        }
+
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureServices(services =>
