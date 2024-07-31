@@ -36,19 +36,15 @@ namespace JornadaMilhas.Integration.Test.API
             }
 
             using var client = await _app.GetClientWithAccessTokenAsync();
-            var rota = new
-            {
-                Id = rotaExistente.Id,
-                Origem = "Origem",
-                Destino = "Destino"
-            };
+            rotaExistente.Origem = "Origem Alterada";
+            rotaExistente.Destino = "Destino Alterado";
 
             //act
-            var response = await client.PutAsJsonAsync($"/rota-viagem/{rotaExistente.Id}", rota);
+            var response = await client.PutAsJsonAsync($"/rota-viagem/", rotaExistente);
 
             //assert
             Assert.NotNull(response);
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(HttpStatusCode.NoContent, response.StatusCode);
         }
     }
 }
