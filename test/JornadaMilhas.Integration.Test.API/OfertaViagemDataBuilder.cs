@@ -18,6 +18,13 @@ namespace JornadaMilhas.Integration.Test.API
 
         public OfertaViagemDataBuilder()
         {
+            CustomInstantiator(f =>
+            {
+                var rota = Rota ?? new RotaDataBuilder().Build();
+                var periodo = Periodo ?? new PeriodoDataBuilder().Build();
+                var preco = f.Random.Double(PrecoMinimo, PrecoMaximo);
+                return new OfertaViagem(rota, periodo, preco);
+            });
         }
     }
 }
