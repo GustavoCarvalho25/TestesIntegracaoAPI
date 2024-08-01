@@ -22,5 +22,7 @@ namespace JornadaMilhas.Integration.Test.API
                 return new Periodo(dataInicio, dataFim);
             });
         }
+
+        public Periodo Build() => Generate();
     }
 }
